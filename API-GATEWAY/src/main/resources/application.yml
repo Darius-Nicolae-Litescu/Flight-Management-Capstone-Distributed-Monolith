@@ -1,0 +1,31 @@
+eureka:
+  instance:
+    hostname: localhost
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: LOGIN-MICROSERVICE
+          uri: lb://LOGIN-MICROSERVICE
+          predicates:
+            - Path=/api/user/**
+        - id: PASSENGER-MICROSERVICE
+          uri: lb://PASSENGER-MICROSERVICE
+          predicates:
+            - Path=/api/passenger/**
+        - id: FLIGHT-MICROSERVICE
+          uri: lb://FLIGHT-MICROSERVICE
+          predicates:
+            - Path=/api/flight/**
+        - id: BOOKING-MICROSERVICE
+          uri: lb://BOOKING-MICROSERVICE
+          predicates:
+            - Path=/api/booking/**
+        - id: REVIEW-MICROSERVICE
+          uri: lb://REVIEW-MICROSERVICE
+          predicates:
+            - Path=/api/review/**
+server:
+  port: '8089'
