@@ -1,0 +1,1162 @@
+{
+	"info": {
+		"_postman_id": "bd71f5e5-ba62-40ab-81f4-5ab29514ecd9",
+		"name": "Spring - Training - Final Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "user operations/ login microservice",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Get all users",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"description": "User",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0QWRtaW4iLCJleHAiOjE2NjE3Njc5NzYsImlhdCI6MTY2MTY4MTU3Nn0.ZjxUwLrJee47wxYyXR-iMG44cAXofMEypzXbb-MMxPM",
+										"description": "Admin",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/user/admin/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get all users ids",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"description": "User",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0QWRtaW4iLCJleHAiOjE2NjE3Njc5NzYsImlhdCI6MTY2MTY4MTU3Nn0.ZjxUwLrJee47wxYyXR-iMG44cAXofMEypzXbb-MMxPM",
+										"description": "Admin",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/user/admin/users/ids",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"users",
+										"ids"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by username / needed for auth",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0QWRtaW4iLCJleHAiOjE2NjE3Njc5NzYsImlhdCI6MTY2MTY4MTU3Nn0.ZjxUwLrJee47wxYyXR-iMG44cAXofMEypzXbb-MMxPM",
+										"description": "Admin",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/user/admin/NewUsername14Admin",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"NewUsername14Admin"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user by id entity",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0QWRtaW4iLCJleHAiOjE2NjE3Njc5NzYsImlhdCI6MTY2MTY4MTU3Nn0.ZjxUwLrJee47wxYyXR-iMG44cAXofMEypzXbb-MMxPM",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/user/admin/entity/id/2635",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"user",
+										"admin",
+										"entity",
+										"id",
+										"2635"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Register",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"NewUsername14Admin\",\r\n    \"password\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/user/public/register",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"user",
+										"public",
+										"register"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\" :\"NewUsername14\",\r\n    \"password\" :\"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/user/public/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"user",
+										"public",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change user details by jwt username",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"password\": 1234\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/user/user",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"user",
+										"user"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "passenger operations",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Add passenger",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"description": "User",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userId\":2627,\r\n    \"firstName\": \"Darius\",\r\n    \"lastName\": \"Litescu\",\r\n    \"age\": 21,\r\n    \"gender\": \"MALE\",\r\n    \"phoneNumber\": \"52501050000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/admin/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"admin",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change passenger details",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjE0MDg4NzUsImlhdCI6MTY2MTMyMjQ3NX0.qaBRB72q2TYMSDf7osmxq6H1mND_3lkAqtGDGZavOf0",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 2633,\r\n    \"userId\": 2632,\r\n    \"firstName\": \"Sample firstName2\",\r\n    \"lastName\": \"Sample secondName2\",\r\n    \"age\": 22,\r\n    \"gender\": \"MALE\",\r\n    \"phoneNumber\": \"52501050000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/admin/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"admin",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get passenger details by user id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0QWRtaW4iLCJleHAiOjE2NjE3Njc5NzYsImlhdCI6MTY2MTY4MTU3Nn0.ZjxUwLrJee47wxYyXR-iMG44cAXofMEypzXbb-MMxPM",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/admin/user/2634",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"admin",
+										"user",
+										"2634"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get passenger details by id",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0QWRtaW4iLCJleHAiOjE2NjE3Njc5NzYsImlhdCI6MTY2MTY4MTU3Nn0.ZjxUwLrJee47wxYyXR-iMG44cAXofMEypzXbb-MMxPM",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/admin/2636",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"admin",
+										"2636"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a flight",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0QWRtaW4iLCJleHAiOjE2NjE3Njc5NzYsImlhdCI6MTY2MTY4MTU3Nn0.ZjxUwLrJee47wxYyXR-iMG44cAXofMEypzXbb-MMxPM",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/admin/2636",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"admin",
+										"2636"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Add passenger by jwt",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzcwNjg1LCJpYXQiOjE2NjE2ODQyODV9.HXIMBNoSnPTJO8xB42sOXKhyYKG2zzJGxVVe-IajPmU",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Darius\",\r\n    \"lastName\": \"Litescu\",\r\n    \"age\": 21,\r\n    \"gender\": \"MALE\",\r\n    \"phoneNumber\": \"52501050000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/user/add",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"user",
+										"add"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Change passenger details by jwt",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"Sample firstName2\",\r\n    \"lastName\": \"Sample secondName2\",\r\n    \"age\": 22,\r\n    \"gender\": \"MALE\",\r\n    \"phoneNumber\": \"52501050000000\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/user/update",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"user",
+										"update"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get passenger details",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/passenger/user/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"passenger",
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "flight operations/ flight microservice",
+			"item": [
+				{
+					"name": "general",
+					"item": [
+						{
+							"name": "Admin",
+							"item": [
+								{
+									"name": "Add flight",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjEzMzUxNTYsImlhdCI6MTY2MTI0ODc1Nn0.uO_yvnWIs5De9pijSPjAJ8_LR09kL5XrTDBakdlprxI",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"flightName\": \"Testing a flight\",\r\n    \"departureCityId\": 27,\r\n    \"arrivalCityId\": 25,\r\n    \"flightType\": \"International\",\r\n    \"seatCapacity\": 300\r\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8092/api/flight",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8092",
+											"path": [
+												"api",
+												"flight"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Update flight",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"url": {
+											"raw": "http://localhost:8092/api/flight",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8092",
+											"path": [
+												"api",
+												"flight"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Add schedule details",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "User",
+							"item": [
+								{
+									"name": "searches",
+									"item": [
+										{
+											"name": "Get flights by departure City",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjE0MDg4NzUsImlhdCI6MTY2MTMyMjQ3NX0.qaBRB72q2TYMSDf7osmxq6H1mND_3lkAqtGDGZavOf0",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "http://localhost:8089/api/flight/user/flights/departureCity?departureCity=Some city:",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8089",
+													"path": [
+														"api",
+														"flight",
+														"user",
+														"flights",
+														"departureCity"
+													],
+													"query": [
+														{
+															"key": "departureCity",
+															"value": "Some city:"
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get flights by arrival City",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjE0MDg4NzUsImlhdCI6MTY2MTMyMjQ3NX0.qaBRB72q2TYMSDf7osmxq6H1mND_3lkAqtGDGZavOf0",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "http://localhost:8089/api/flight/user/flights/arrivalCity?arrivalCity=Some city: ",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8089",
+													"path": [
+														"api",
+														"flight",
+														"user",
+														"flights",
+														"arrivalCity"
+													],
+													"query": [
+														{
+															"key": "arrivalCity",
+															"value": "Some city: "
+														}
+													]
+												}
+											},
+											"response": []
+										},
+										{
+											"name": "Get flights by flight Type",
+											"request": {
+												"method": "GET",
+												"header": [
+													{
+														"key": "Authorization",
+														"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjE0MDg4NzUsImlhdCI6MTY2MTMyMjQ3NX0.qaBRB72q2TYMSDf7osmxq6H1mND_3lkAqtGDGZavOf0",
+														"type": "text"
+													}
+												],
+												"url": {
+													"raw": "http://localhost:8089/api/flight/user/flights/flightType?flightType=International",
+													"protocol": "http",
+													"host": [
+														"localhost"
+													],
+													"port": "8089",
+													"path": [
+														"api",
+														"flight",
+														"user",
+														"flights",
+														"flightType"
+													],
+													"query": [
+														{
+															"key": "flightType",
+															"value": "International"
+														}
+													]
+												}
+											},
+											"response": []
+										}
+									]
+								},
+								{
+									"name": "Get by id",
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8089/api/flight/user/2601",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8089",
+											"path": [
+												"api",
+												"flight",
+												"user",
+												"2601"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Get new Seat ID",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://localhost:8089/api/flight/user/seat/new/2601",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8089",
+											"path": [
+												"api",
+												"flight",
+												"user",
+												"seat",
+												"new",
+												"2601"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Count seats by flight ID",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjE0MDg4NzUsImlhdCI6MTY2MTMyMjQ3NX0.qaBRB72q2TYMSDf7osmxq6H1mND_3lkAqtGDGZavOf0",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": ""
+										},
+										"url": {
+											"raw": "http://localhost:8089/api/flight/user/seat/count/2621",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8089",
+											"path": [
+												"api",
+												"flight",
+												"user",
+												"seat",
+												"count",
+												"2621"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Check if flight exist",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": null
+									},
+									"response": []
+								}
+							]
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "booking operations/ booking microservice",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Add booking",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "Get Bookings By User ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjEzMzUxNTYsImlhdCI6MTY2MTI0ODc1Nn0.uO_yvnWIs5De9pijSPjAJ8_LR09kL5XrTDBakdlprxI",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8091/api/booking/user/16",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"booking",
+										"user",
+										"16"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Bookings By Flight ID",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZTEiLCJleHAiOjE2NjEzMzUxNTYsImlhdCI6MTY2MTI0ODc1Nn0.uO_yvnWIs5De9pijSPjAJ8_LR09kL5XrTDBakdlprxI",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8091/api/booking/flight/16",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"booking",
+										"flight",
+										"16"
+									],
+									"query": [
+										{
+											"key": "",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Passenger Details By Booking ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "Get Previous Bookings By User ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8091/api/booking/passenger/history",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8091",
+									"path": [
+										"api",
+										"booking",
+										"passenger",
+										"history"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Add booking by JWT",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"numberOfSeats\": 5\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/booking/user/2601",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"booking",
+										"user",
+										"2601"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Previous Bookings By JWT",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8089/api/booking/passenger/history",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"booking",
+										"passenger",
+										"history"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "review operations/ review microservice",
+			"item": [
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Delete review",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8089/api/review/user/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"review",
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete comment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "User",
+					"item": [
+						{
+							"name": "Add review",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"flightId\": 2638,\r\n    \"content\": \"Very Good flight 2\",\r\n    \"numberOfStars\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/review/user/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"review",
+										"user",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add comment",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "dar eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJOZXdVc2VybmFtZTE0IiwiZXhwIjoxNjYxNzY3MzUzLCJpYXQiOjE2NjE2ODA5NTN9.EOiDGsbZV7kXThn7n8WDVkwcp1q_Aa2CE6okUgJa7Gk",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"reviewId\": 2642,\r\n    \"content\": \"f ...\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8089/api/review/user/comment",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8089",
+									"path": [
+										"api",
+										"review",
+										"user",
+										"comment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get review",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						},
+						{
+							"name": "Get review by flight ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": null
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
