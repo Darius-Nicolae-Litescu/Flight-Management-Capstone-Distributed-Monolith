@@ -101,7 +101,7 @@ public class PassengerServiceImpl implements PassengerService {
 
         Optional<Passenger> passengerOptional = passengerRepository.findByUserId(userOptional.get().getUserId());
         if (!passengerOptional.isPresent()) {
-            throw new EntityNotFoundException("Passenger not found", passengerOptional.get().getId(), Passenger.class.toString());
+            throw new EntityNotFoundException("Passenger not found", 0L, Passenger.class.toString());
         }
 
         Passenger passenger = PassengerMapper.passengerUserUpdateDtoToPassenger(passengerUserUpdateDTO, userOptional.get().getUserId(), passengerOptional.get());
