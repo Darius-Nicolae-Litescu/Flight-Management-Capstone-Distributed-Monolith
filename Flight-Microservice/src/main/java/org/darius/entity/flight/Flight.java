@@ -4,12 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
+import org.darius.entity.location.City;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,11 +35,12 @@ public class Flight {
 	@Column(name = "flight_seat_capacity")
 	private Integer flightSeatCapacity;
 
-	@OneToOne(cascade = CascadeType.ALL)
+	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "flight_schedule")
 	private Schedule flightSchedule;
 
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "flight_id")
 	private List<Seat> seats = new ArrayList<>();
+
 }

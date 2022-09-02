@@ -9,8 +9,11 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -33,7 +36,7 @@ public class City {
 			joinColumns = @JoinColumn(name = "arrival_city_id"),
 			inverseJoinColumns = @JoinColumn(name = "flight_id"))
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Flight> arrivalCities = new ArrayList<>();
+	private Set<Flight> arrivalFlights = new HashSet<>();
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(
@@ -41,5 +44,5 @@ public class City {
 			joinColumns = @JoinColumn(name = "departure_city_id"),
 			inverseJoinColumns = @JoinColumn(name = "flight_id"))
 	@Fetch(value = FetchMode.SUBSELECT)
-	private List<Flight> departureCities = new ArrayList<>();
+	private Set<Flight> departureFlights = new HashSet<>();
 }

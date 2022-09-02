@@ -7,8 +7,16 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class EntityNotFoundException extends Exception {
     private Long entityNotFoundId;
 
+    private String entityClass;
+
     public EntityNotFoundException(Long entityNotFoundId) {
         this.entityNotFoundId = entityNotFoundId;
+    }
+
+    public EntityNotFoundException(String message, Long entityNotFoundId, String entityClass) {
+        super(message);
+        this.entityNotFoundId = entityNotFoundId;
+        this.entityClass = entityClass;
     }
 
     public EntityNotFoundException(String message, Long entityNotFoundId) {
@@ -18,5 +26,9 @@ public class EntityNotFoundException extends Exception {
 
     public Long getEntityNotFoundId() {
         return entityNotFoundId;
+    }
+
+    public String getEntityClass() {
+        return entityClass;
     }
 }

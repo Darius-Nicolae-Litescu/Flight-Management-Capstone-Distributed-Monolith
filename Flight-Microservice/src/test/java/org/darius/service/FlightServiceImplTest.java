@@ -2,16 +2,19 @@ package org.darius.service;
 
 import org.darius.RestClient;
 import org.darius.dto.request.insert.FlightInsertDTO;
+import org.darius.dto.request.insert.ScheduleInsertDTO;
 import org.darius.dto.request.update.FlightUpdateDTO;
 import org.darius.dto.response.FlightResponseDTO;
+import org.darius.dto.response.ScheduleResponseDTO;
 import org.darius.entity.flight.Flight;
+import org.darius.entity.flight.Schedule;
 import org.darius.entity.flight.Seat;
 import org.darius.entity.location.City;
 import org.darius.exception.EntityNotFoundException;
 import org.darius.mapper.FlightMapper;
-import org.darius.model.User;
 import org.darius.repository.CityRepository;
 import org.darius.repository.FlightRepository;
+import org.darius.repository.ScheduleRepository;
 import org.darius.repository.SeatRepository;
 import org.darius.service.builder.FlightBuilder;
 import org.darius.wrapper.FlightOperationWrapper;
@@ -23,18 +26,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.http.ResponseEntity;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.time.LocalTime;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 class FlightServiceImplTest {
@@ -50,6 +49,9 @@ class FlightServiceImplTest {
 
     @Mock
     private SeatRepository seatRepository;
+
+    @Mock
+    private ScheduleRepository scheduleRepository;
 
     @InjectMocks
     private FlightServiceImpl flightService;
@@ -129,7 +131,7 @@ class FlightServiceImplTest {
 
     @Test
     @DisplayName("updateFlight should throw EntityNotFound")
-    void updateFlightShouldThrowEntityNotFound(){
+    void updateFlightShouldThrowEntityNotFound() {
         FlightUpdateDTO flightUpdateDTO = new FlightUpdateDTO();
         flightUpdateDTO.setId(1L);
         flightUpdateDTO.setFlightName("test");
@@ -156,20 +158,75 @@ class FlightServiceImplTest {
     @DisplayName("Should test deleteFlight method of FlightServiceImpl")
     void shouldDeleteFlight() throws EntityNotFoundException {
         Flight flight = FlightBuilder.random().build();
+        Set<Flight> flights = new HashSet<>(Arrays.asList(flight));
+        City city = new City();
+        city.setArrivalFlights(flights);
+        city.setDepartureFlights(flights);
+
         when(flightRepository.findById(1L)).thenReturn(Optional.of(flight));
+        when(cityRepository.getArrivalCityByFlightId(anyLong())).thenReturn(Optional.of(city));
+        when(cityRepository.getDepartureCityByFlightId(anyLong())).thenReturn(Optional.of(city));
+
         FlightOperationWrapper<FlightResponseDTO> flightOperationWrapper = flightService.deleteFlight(1L);
         assertEquals(flightOperationWrapper.getResult(), FlightMapper.flightToFlightResponseDTO(flight));
 
         verify(flightRepository).findById(1L);
+        verify(cityRepository, times(1)).getArrivalCityByFlightId(anyLong());
+        verify(cityRepository, times(1)).getDepartureCityByFlightId(anyLong());
     }
 
     @Test
+    @DisplayName("deleteFlight should throw EntityNotFound")
     void deleteFlightShouldThrowEntityNotFoundException() {
         when(flightRepository.findById(1L)).thenReturn(Optional.empty());
         assertThrows(EntityNotFoundException.class, () -> flightService.deleteFlight(1L));
 
         verify(flightRepository).findById(1L);
     }
+
+    @Test
+    @DisplayName("Should add schedule to flight")
+    void shouldAddScheduleToFlight() throws EntityNotFoundException {
+        Flight flight = FlightBuilder.random().build();
+        Schedule schedule = new Schedule();
+        schedule.setScheduleId(1L);
+        schedule.setLandingTime(LocalTime.of(10, 0));
+        schedule.setDepartureTime(LocalTime.of(10, 0));
+        schedule.setStop("Somewhere");
+        flight.setFlightSchedule(schedule);
+
+        ScheduleInsertDTO scheduleInsertDTO = new ScheduleInsertDTO();
+        scheduleInsertDTO.setDepartureTime(schedule.getDepartureTime());
+        scheduleInsertDTO.setLandingTime(schedule.getLandingTime());
+        scheduleInsertDTO.setStop(schedule.getStop());
+
+        when(flightRepository.findById(anyLong())).thenReturn(Optional.of(flight));
+        when(flightRepository.save(any(Flight.class))).thenReturn(flight);
+        when(scheduleRepository.save(any(Schedule.class))).thenReturn(schedule);
+
+        ScheduleResponseDTO scheduleResponseDTO = FlightMapper.scheduleToScheduleResponseDTO(schedule, flight.getFlightId());
+
+        ScheduleResponseDTO actualScheduleResponseDTO = flightService.addSchedule(flight.getFlightId(), scheduleInsertDTO);
+
+        assertEquals(scheduleResponseDTO, actualScheduleResponseDTO);
+
+        verify(flightRepository).findById(anyLong());
+        verify(flightRepository).save(any(Flight.class));
+    }
+
+    @Test
+    @DisplayName("addSchedule should throw EntityNotFound")
+    void addScheduleShouldThrowEntityNotFoundException() {
+        ScheduleInsertDTO scheduleInsertDTO = new ScheduleInsertDTO();
+        scheduleInsertDTO.setDepartureTime(LocalTime.of(10, 0));
+        scheduleInsertDTO.setLandingTime(LocalTime.of(10, 0));
+        scheduleInsertDTO.setStop("Somewhere");
+        when(flightRepository.findById(anyLong())).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, () -> flightService.addSchedule(1L, scheduleInsertDTO));
+
+        verify(flightRepository).findById(1L);
+    }
+
 
     @Test
     @DisplayName("Should test getFlightsByFlightName method of FlightServiceImpl")
@@ -193,7 +250,7 @@ class FlightServiceImplTest {
 
     @Test
     @DisplayName("Should test getFlightsByDepartureCity method of FlightServiceImpl")
-    void shouldReturnFlightsByDepartureCity(){
+    void shouldReturnFlightsByDepartureCity() {
         Flight flight = FlightBuilder.random().build();
         Flight flight2 = FlightBuilder.random().build();
 
@@ -212,7 +269,7 @@ class FlightServiceImplTest {
 
     @Test
     @DisplayName("Should test getFlightsByArrivalCity method of FlightServiceImpl")
-    void shouldReturnFlightsByArrivalCity(){
+    void shouldReturnFlightsByArrivalCity() {
         Flight flight = FlightBuilder.random().build();
         Flight flight2 = FlightBuilder.random().build();
 
@@ -231,7 +288,7 @@ class FlightServiceImplTest {
 
     @Test
     @DisplayName("Should test getFlightsByFlightType method of FlightServiceImpl")
-    void shouldReturnFlightsByFlightType(){
+    void shouldReturnFlightsByFlightType() {
         Flight flight = FlightBuilder.random().build();
         Flight flight2 = FlightBuilder.random().build();
 

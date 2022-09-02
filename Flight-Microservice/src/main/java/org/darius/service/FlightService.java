@@ -1,7 +1,9 @@
 package org.darius.service;
-import org.darius.dto.request.insert.ScheduleInsertDTO;
-import org.darius.dto.request.update.FlightUpdateDTO;
+
 import org.darius.dto.request.insert.FlightInsertDTO;
+import org.darius.dto.request.insert.ScheduleInsertDTO;
+import org.darius.dto.request.insert.ScheduleUpdateDTO;
+import org.darius.dto.request.update.FlightUpdateDTO;
 import org.darius.dto.response.FlightResponseDTO;
 import org.darius.dto.response.ScheduleResponseDTO;
 import org.darius.entity.flight.Flight;
@@ -18,7 +20,10 @@ public interface FlightService {
 	FlightOperationWrapper<FlightResponseDTO> updateFlight(FlightUpdateDTO flightUpdateDTO) throws EntityNotFoundException;
 
 	FlightOperationWrapper<FlightResponseDTO> deleteFlight(Long id) throws EntityNotFoundException;
+
 	ScheduleResponseDTO addSchedule(Long flightId, ScheduleInsertDTO scheduleInsertDTO) throws EntityNotFoundException;
+
+	ScheduleResponseDTO deleteSchedule(Long flightId) throws EntityNotFoundException;
 
 	List<FlightResponseDTO> getFlightsByFlightName(String flightName);
 
@@ -42,7 +47,9 @@ public interface FlightService {
 
 	Long countSeatsByFlightId(Long flightId);
 
-    List<Flight> findFlightsByIds(List<Long> flightIds);
+	List<Flight> findFlightsByIds(List<Long> flightIds);
 
 	Boolean checkIfFlightExists(Long flightId);
+
+	ScheduleResponseDTO updateSchedule(Long flightId, ScheduleUpdateDTO scheduleUpdateDTO) throws EntityNotFoundException;
 }

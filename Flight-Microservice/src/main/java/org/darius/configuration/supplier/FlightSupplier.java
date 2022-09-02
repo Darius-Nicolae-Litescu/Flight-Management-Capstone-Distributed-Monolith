@@ -8,9 +8,8 @@ import org.darius.function.QuadFunction;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneOffset;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.Random;
 import java.util.function.Supplier;
 
@@ -31,10 +30,10 @@ public class FlightSupplier {
     public QuadFunction<Flight, City, City, User, Flight> flightQuadFunction =
             (flight, departureCity, arrivalCity, user) -> {
         LocalDate randomDate = LocalDate.now().plus(Period.ofDays((new Random().nextInt(365 * 70))));
-        departureCity.setDepartureCities(new ArrayList<>());
-        departureCity.getDepartureCities().add(flight);
-        arrivalCity.setArrivalCities(new ArrayList<>());
-        arrivalCity.getArrivalCities().add(flight);
+        departureCity.setDepartureFlights(new HashSet<>());
+        departureCity.getDepartureFlights().add(flight);
+        arrivalCity.setArrivalFlights(new HashSet<>());
+        arrivalCity.getArrivalFlights().add(flight);
         return flight;
     };
 }

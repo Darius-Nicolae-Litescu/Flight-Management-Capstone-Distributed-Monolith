@@ -1,6 +1,7 @@
 package org.darius.service;
 
 import org.darius.dto.request.insert.ScheduleInsertDTO;
+import org.darius.dto.request.insert.ScheduleUpdateDTO;
 import org.darius.dto.request.update.FlightUpdateDTO;
 import org.darius.dto.request.insert.FlightInsertDTO;
 import org.darius.dto.response.FlightResponseDTO;
@@ -13,6 +14,7 @@ import org.darius.exception.EntityNotFoundException;
 import org.darius.mapper.FlightMapper;
 import org.darius.repository.CityRepository;
 import org.darius.repository.FlightRepository;
+import org.darius.repository.ScheduleRepository;
 import org.darius.repository.SeatRepository;
 import org.darius.wrapper.FlightOperationWrapper;
 import org.slf4j.Logger;
@@ -35,12 +37,15 @@ public class FlightServiceImpl implements FlightService {
 	private final CityRepository cityRepository;
 
 	private final SeatRepository seatRepository;
+
+	private final ScheduleRepository scheduleRepository;
 	
 	@Autowired
-	public FlightServiceImpl(FlightRepository flightRepository, CityRepository cityRepository, SeatRepository seatRepository) {
+	public FlightServiceImpl(FlightRepository flightRepository, CityRepository cityRepository, SeatRepository seatRepository, ScheduleRepository scheduleRepository) {
 		this.flightRepository = flightRepository;
 		this.cityRepository = cityRepository;
 		this.seatRepository = seatRepository;
+		this.scheduleRepository = scheduleRepository;
 	}
 
 	@Override
@@ -58,8 +63,8 @@ public class FlightServiceImpl implements FlightService {
 		}
 		Flight savedFlight = flightRepository.save(flight);
 
-		arrivalCity.get().getArrivalCities().add(flight);
-		departureCity.get().getDepartureCities().add(flight);
+		arrivalCity.get().getArrivalFlights().add(flight);
+		departureCity.get().getDepartureFlights().add(flight);
 
 		cityRepository.save(arrivalCity.get());
 		cityRepository.save(departureCity.get());
@@ -87,8 +92,8 @@ public class FlightServiceImpl implements FlightService {
 				throw new EntityNotFoundException(flightUpdateDTO.getArrivalCityId());
 			}
 
-			arrivalCity.get().getArrivalCities().add(flight);
-			departureCity.get().getDepartureCities().add(flight);
+			arrivalCity.get().getArrivalFlights().add(flight);
+			departureCity.get().getDepartureFlights().add(flight);
 			cityRepository.save(arrivalCity.get());
 			cityRepository.save(departureCity.get());
 			return new FlightOperationWrapper<>("Flight has been updated",
@@ -99,18 +104,30 @@ public class FlightServiceImpl implements FlightService {
 	}
 
 	@Override
+	@Transactional
 	public FlightOperationWrapper<FlightResponseDTO> deleteFlight(Long id) throws EntityNotFoundException {
 		logger.info("Trying to delete flight with id: {}", id);
 		Optional<Flight> flight = flightRepository.findById(id);
 		if (!flight.isPresent()) {
-			throw new EntityNotFoundException(id);
+			throw new EntityNotFoundException("Flight with id: " + id + " not found", id, Flight.class.toString());
 		}
+		Optional<City> departureCity = cityRepository.getDepartureCityByFlightId(id);
+		if (!departureCity.isPresent()) {
+			throw new EntityNotFoundException("City with id " + id + " not found", 0L, City.class.toString());
+		}
+		Optional<City> arrivalCity = cityRepository.getArrivalCityByFlightId(id);
+		if (!arrivalCity.isPresent()) {
+			throw new EntityNotFoundException("City with id " + id + " not found", 0L, City.class.toString());
+		}
+		departureCity.get().getDepartureFlights().remove(flight.get());
+		arrivalCity.get().getArrivalFlights().remove(flight.get());
 		flightRepository.delete(flight.get());
 		return new FlightOperationWrapper<>("Flight has been deleted",
 				FlightMapper.flightToFlightResponseDTO(flight.get()));
 	}
 
 	@Override
+	@Transactional
 	public ScheduleResponseDTO addSchedule(Long flightId, ScheduleInsertDTO scheduleInsertDTO) throws EntityNotFoundException {
 		logger.info("Trying to add schedule for flight with id: {}", flightId);
 		Optional<Flight> flight = flightRepository.findById(flightId);
@@ -119,12 +136,40 @@ public class FlightServiceImpl implements FlightService {
 		}
 		Schedule schedule = FlightMapper.scheduleInsertDTOToSchedule(scheduleInsertDTO);
 
+		schedule = scheduleRepository.save(schedule);
 		flight.get().setFlightSchedule(schedule);
 		flightRepository.save(flight.get());
 
-		ScheduleResponseDTO scheduleResponseDTO = FlightMapper.scheduleToScheduleResponseDTO(schedule, flightId);
-		scheduleResponseDTO.setScheduleId(flight.get().getFlightSchedule().getScheduleId());
-		return scheduleResponseDTO;
+		return FlightMapper.scheduleToScheduleResponseDTO(flight.get().getFlightSchedule(), flightId);
+	}
+
+	@Override
+	public ScheduleResponseDTO updateSchedule(Long flightId, ScheduleUpdateDTO scheduleUpdateDTO) throws EntityNotFoundException {
+		logger.info("Trying to update schedule for flight with id: {}", flightId);
+		Optional<Flight> flightOptional = flightRepository.findById(flightId);
+		if (!flightOptional.isPresent()) {
+			throw new EntityNotFoundException(flightId);
+		}
+		Schedule schedule = flightOptional.get().getFlightSchedule();
+		FlightMapper.scheduleUpdateDtoToSchedule(schedule, scheduleUpdateDTO);
+		flightRepository.save(flightOptional.get());
+		return FlightMapper.scheduleToScheduleResponseDTO(schedule, flightId);
+	}
+
+
+	@Override
+	@Transactional
+	public ScheduleResponseDTO deleteSchedule(Long flightId) throws EntityNotFoundException {
+		logger.info("Trying to delete schedule with id: {}", flightId);
+		Optional<Flight> flightOptional = flightRepository.findById(flightId);
+		if (!flightOptional.isPresent()) {
+			throw new EntityNotFoundException(flightId);
+		}
+		Schedule schedule = flightOptional.get().getFlightSchedule();
+		scheduleRepository.delete(schedule);
+		flightOptional.get().setFlightSchedule(null);
+		flightRepository.save(flightOptional.get());
+		return FlightMapper.scheduleToScheduleResponseDTO(schedule, flightId);
 	}
 
 	@Override
@@ -226,9 +271,7 @@ public class FlightServiceImpl implements FlightService {
 		if (!flight.isPresent()) {
 			throw new EntityNotFoundException(flightId);
 		}
-		FlightResponseDTO flightResponseDTO = new FlightResponseDTO();
-		flightResponseDTO.setFlightNumber(flightId);
-		flightResponseDTO.setFlightName(flight.get().getFlightName());
+		FlightResponseDTO flightResponseDTO = FlightMapper.flightToFlightResponseDTO(flight.get());
 		return flightResponseDTO;
 	}
 

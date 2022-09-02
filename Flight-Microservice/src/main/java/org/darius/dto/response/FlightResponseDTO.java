@@ -11,4 +11,5 @@ import org.springframework.hateoas.RepresentationModel;
 public class FlightResponseDTO extends RepresentationModel<FlightResponseDTO> {
 	private Long flightNumber;
 	private String flightName;
+	private ScheduleResponseDTO scheduleResponseDTO;
 }

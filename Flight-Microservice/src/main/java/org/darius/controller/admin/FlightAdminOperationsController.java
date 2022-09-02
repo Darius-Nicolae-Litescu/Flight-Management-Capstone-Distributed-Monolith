@@ -2,6 +2,7 @@ package org.darius.controller.admin;
 
 import org.darius.controller.user.FlightUserOperationsController;
 import org.darius.dto.request.insert.ScheduleInsertDTO;
+import org.darius.dto.request.insert.ScheduleUpdateDTO;
 import org.darius.dto.request.update.FlightUpdateDTO;
 import org.darius.dto.request.insert.FlightInsertDTO;
 import org.darius.dto.response.FlightResponseDTO;
@@ -67,13 +68,31 @@ public class FlightAdminOperationsController {
         return new ResponseEntity<>(flightResponseDTOFlightOperationWrapper, HttpStatus.OK);
     }
 
-    @PostMapping("/{id}/schedule")
+    @PostMapping("/{flightId}/schedule")
     public ResponseEntity<ScheduleResponseDTO> addSchedule(
-            @PathVariable Long id,
+            @PathVariable Long flightId,
             @RequestBody @Valid ScheduleInsertDTO scheduleInsertDTO) throws EntityNotFoundException {
         logger.info("Trying to add schedule {}" , scheduleInsertDTO);
         ScheduleResponseDTO scheduleResponseDTO =
-                flightService.addSchedule(id, scheduleInsertDTO);
+                flightService.addSchedule(flightId, scheduleInsertDTO);
+        return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/{flightId}/schedule")
+    public ResponseEntity<ScheduleResponseDTO> updateSchedule(
+            @PathVariable Long flightId,
+            @RequestBody @Valid ScheduleUpdateDTO scheduleUpdateDTO) throws EntityNotFoundException {
+        logger.info("Trying to update schedule {}" , scheduleUpdateDTO);
+        ScheduleResponseDTO scheduleResponseDTO =
+                flightService.updateSchedule(flightId, scheduleUpdateDTO);
+        return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/schedule/{flightId}")
+    public ResponseEntity<ScheduleResponseDTO> deleteSchedule(@PathVariable Long flightId) throws EntityNotFoundException {
+        logger.info("Trying to delete schedule {}" , flightId);
+        ScheduleResponseDTO scheduleResponseDTO =
+                flightService.deleteSchedule(flightId);
         return new ResponseEntity<>(scheduleResponseDTO, HttpStatus.OK);
     }
 
